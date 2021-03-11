@@ -6,6 +6,8 @@ import {
   transition,
   animate,
 } from '@angular/animations';
+import { UsersService } from 'src/app/services/users.service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-users',
@@ -24,12 +26,22 @@ import {
 })
 export class UsersComponent implements OnInit {
   state = 'collapsed';
+  stateId = 0;
+  users: User[] = [];
 
-  constructor() {}
+  constructor(private userService: UsersService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userService.getUsers().subscribe(
+      (users) => {
+        this.users = users;
+        this.users.map((user) => (user.state = 'collapsed'));
+      },
+      (error) => console.log(error)
+    );
+  }
 
-  toggle(): void {
-    this.state = this.state === 'collapsed' ? 'expanded' : 'collapsed';
+  toggle(user: User): void {
+    user.state = user.state === 'collapsed' ? 'expanded' : 'collapsed';
   }
 }

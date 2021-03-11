@@ -4,23 +4,62 @@
     <mat-divider></mat-divider>
   </div>
   <div class="row">
-    <div class="col-4 mt-3">
-      <mat-card class="example-card">
+    <div class="col col-sm-6 col-lg-4 mt-3" *ngFor="let user of users">
+      <mat-card>
         <mat-card-title-group>
-          <mat-icon mat-card-avatar>person</mat-icon>
-          <mat-card-title>Shiba Inu</mat-card-title>
-          <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+          <mat-icon mat-card-avatar class="mx-2">person</mat-icon>
+          <mat-card-title>{{ user.username }}</mat-card-title>
         </mat-card-title-group>
         <mat-card-content>
-          <p [@bodyExpansion]="state" class="expandable-content">
-            The Shiba Inu is the smallest of the six original and distinct spitz
-            breeds of dog from Japan. A small, agile dog that copes very well
-            with mountainous terrain, the Shiba Inu was originally bred for
-            hunting.
-          </p>
+          <div [@bodyExpansion]="user.state" class="expandable-content">
+            <p><strong>Nombre</strong>: {{ user.name }}</p>
+            <address><strong>Sitio Web</strong>: {{ user.website }}</address>
+            <span>
+              <strong>Empresa</strong>
+              <ul>
+                <li><strong>Nombre</strong>: {{ user.company.name }}</li>
+                <li>
+                  <strong>Descripcion</strong>: {{ user.company.catchPhrase }}
+                </li>
+              </ul>
+            </span>
+            <div class="d-flex flex-column">
+              <button
+                mat-raised-button
+                color="accent"
+                class="mt-2"
+                routerLink="/posts/{{ user.id }}"
+              >
+                Posteos
+              </button>
+              <button
+                mat-raised-button
+                color="accent"
+                class="mt-2"
+                routerLink="/albumes/{{ user.id }}"
+              >
+                Álbumes
+              </button>
+              <button
+                mat-raised-button
+                color="accent"
+                class="mt-2"
+                routerLink="/todos/{{ user.id }}"
+              >
+                TODO's
+              </button>
+            </div>
+          </div>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button (click)="toggle()" color="primary">Ver más</button>
+          <button mat-button (click)="toggle(user)" color="primary">
+            <span *ngIf="user.state === 'expanded' ? true : false"
+              >Ocultar</span
+            >
+            <span *ngIf="user.state === 'expanded' ? false : true"
+              >Ver más</span
+            >
+          </button>
         </mat-card-actions>
       </mat-card>
     </div>

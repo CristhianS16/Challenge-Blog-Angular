@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,12 +12,20 @@ import { AlbumsComponent } from './components/albums/albums.component';
 import { TodosComponent } from './components/todos/todos.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, UsersComponent, PostsComponent, AlbumsComponent, TodosComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    UsersComponent,
+    PostsComponent,
+    AlbumsComponent,
+    TodosComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     MaterialModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

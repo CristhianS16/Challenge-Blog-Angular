@@ -20,6 +20,10 @@ const routes: Routes = [
     component: PostsComponent,
   },
   {
+    path: 'posts/:id',
+    component: PostsComponent,
+  },
+  {
     path: 'albumes',
     component: AlbumsComponent,
   },
