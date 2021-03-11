@@ -1,0 +1,43 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <div class="d-flex align-items-center px-2">
+      <mat-toolbar>Blog App</mat-toolbar>
+      <button
+        type="button"
+        mat-icon-button
+        (click)="drawer.close()"
+        *ngIf="isHandset$ | async"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/usuarios">Usuarios</a>
+      <a mat-list-item routerLink="/posts">Posteos</a>
+      <a mat-list-item routerLink="/albumes">Álbumes</a>
+      <a mat-list-item routerLink="/todos">TODO's</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.open()"
+        *ngIf="isHandset$ | async"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Blog App</span>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+  </mat-sidenav-content>
+</mat-sidenav-container>
