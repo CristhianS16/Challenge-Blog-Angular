@@ -1,0 +1,12 @@
+.card {
+  width: 500px;
+  margin: 50px auto auto auto;
+}
+
+.expandable-content {
+  overflow: hidden;
+}
+.example-header-image {
+  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
+  background-size: cover;
+}

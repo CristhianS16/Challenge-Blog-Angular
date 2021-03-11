@@ -15,3 +15,11 @@
   top: 0;
   z-index: 1;
 } */
+.card {
+  width: 500px;
+  margin: 50px auto auto auto;
+}
+
+.expandable-content {
+  overflow: hidden;
+}
