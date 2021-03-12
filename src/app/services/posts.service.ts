@@ -10,8 +10,8 @@ import { Comment } from '../models/comment.model';
 export class PostsService {
   constructor(private http: HttpClient) {}
 
-  getPosts() {
-    return this.http.get<Post[]>(`${environment.api_uri}/posts`);
+  getPosts(page: number) {
+    return this.http.get<Post[]>(`${environment.api_uri}/posts?_page=${page}`);
   }
 
   getPostsById(id: number) {

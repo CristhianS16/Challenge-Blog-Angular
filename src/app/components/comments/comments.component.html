@@ -13,6 +13,9 @@
     </button>
   </div>
   <div class="row py-2">
+    <span class="w-100 mt-2" *ngIf="viewSpinner">
+      <mat-spinner class="mx-auto"></mat-spinner>
+    </span>
     <mat-accordion
       class="accordion w-100 mt-2"
       *ngFor="let comment of comments"

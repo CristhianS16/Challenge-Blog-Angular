@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
 export class CommentsComponent implements OnInit {
   postId: number = 0;
   comments: Comment[] = [];
+  viewSpinner: boolean = true;
 
   constructor(
     private postsService: PostsService,
@@ -19,11 +20,15 @@ export class CommentsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.viewSpinner = true;
     const id = Number(this.activatedRoute.snapshot.params.id);
     if (id) {
       this.postId = id;
       this.postsService.getCommentsOfPost(id).subscribe(
-        (comments) => (this.comments = comments),
+        (comments) => {
+          this.comments = comments;
+          this.viewSpinner = false;
+        },
         (error) => console.log(error)
       );
     } else {

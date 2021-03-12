@@ -13,6 +13,8 @@ import { DialogComponent } from '../dialog/dialog.component';
 export class PostsComponent implements OnInit {
   inputTitleValue: string;
   inputIdValue: number = 0;
+  viewSpinner: boolean = true;
+  page: number = 1;
   posts: Post[] = [];
   filterPosts: Post[] = [];
 
@@ -24,25 +26,44 @@ export class PostsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.viewSpinner = true;
     if (this.activatedRoute.params) {
       const params = this.activatedRoute.snapshot.params;
       this.inputIdValue = Number(params.id);
     }
     if (this.inputIdValue) {
       this.postsService.getPostsById(this.inputIdValue).subscribe(
-        (posts) => (this.posts = posts),
+        (posts) => {
+          this.posts = posts;
+          this.viewSpinner = false;
+        },
         (error) => console.log(error)
       );
     } else {
-      this.postsService.getPosts().subscribe(
-        (posts) => (this.posts = posts),
-        (error) => console.log(error)
-      );
+      this.getAllPosts(this.page);
     }
   }
 
+  onScrollDown(): void {
+    this.page++;
+    this.getAllPosts(this.page);
+  }
+
+  getAllPosts(page: number) {
+    this.viewSpinner = true;
+    this.postsService.getPosts(page).subscribe(
+      (posts) => {
+        this.posts = this.posts.concat(posts);
+        this.viewSpinner = false;
+      },
+      (error) => console.log(error)
+    );
+  }
+
   onChangeInputTitle(): void {
+    this.viewSpinner = true;
     this.filterPosts = this.filterByTitle();
+    this.viewSpinner = false;
   }
 
   filterByTitle(): Post[] | any {
@@ -58,14 +79,18 @@ export class PostsComponent implements OnInit {
     return this.posts;
   }
   filterById(): void {
+    this.viewSpinner = true;
     if (this.inputIdValue) {
       this.postsService.getPostsById(this.inputIdValue).subscribe(
         (posts) => {
           this.posts = posts;
+          this.viewSpinner = false;
           this.onChangeInputTitle();
         },
         (error) => console.log(error)
       );
+    } else {
+      this.getAllPosts(this.page);
     }
   }
 
