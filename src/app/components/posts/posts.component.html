@@ -1,1 +1,60 @@
-<p>posts works!</p>
+<div class="container py-3">
+  <app-custom-title title="Posteos"></app-custom-title>
+  <div class="row py-2">
+    <mat-form-field class="w-50" appearance="outline">
+      <mat-label>Filtra por título</mat-label>
+      <input
+        [(ngModel)]="inputTitleValue"
+        matInput
+        aria-label="filter by title"
+        (input)="filterByTitle()"
+      />
+    </mat-form-field>
+    <mat-form-field class="w-50" appearance="outline">
+      <mat-label>Filtra por id</mat-label>
+      <input
+        matInput
+        type="number"
+        min="0"
+        aria-label="filter by id"
+        [(ngModel)]="inputIdValue"
+        (input)="filterById()"
+      />
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <div
+      class="col col-sm-6 col-lg-4 mt-3 align-items-center"
+      *ngFor="let post of filterPosts.length === 0 ? posts : filterPosts"
+    >
+      <mat-card class="d-flex h-100 flex-column">
+        <mat-card-header>
+          <mat-card-title> {{ post.title }}</mat-card-title>
+          <mat-card-subtitle>Usuario: {{ post.userId }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ post.body }}</p>
+          >
+        </mat-card-content>
+        <div class="p-3 d-flex flex-column h-100 justify-content-end">
+          <button
+            mat-raised-button
+            color="accent"
+            class="mt-2"
+            [routerLink]="['/usuarios', post.userId]"
+          >
+            Ver usuario
+          </button>
+          <button
+            mat-raised-button
+            color="accent"
+            class="mt-2"
+            routerLink="/post/{{ post.id }}/comments"
+          >
+            Comentarios
+          </button>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,8 +1,5 @@
 <div class="container py-3">
-  <div>
-    <h1 class="text-left">Usuarios</h1>
-    <mat-divider></mat-divider>
-  </div>
+  <app-custom-title title="Usuarios"></app-custom-title>
   <div class="row">
     <div class="col col-sm-6 col-lg-4 mt-3" *ngFor="let user of users">
       <mat-card>
@@ -28,7 +25,7 @@
                 mat-raised-button
                 color="accent"
                 class="mt-2"
-                routerLink="/posts/{{ user.id }}"
+                [routerLink]="['/posts', user.id]"
               >
                 Posteos
               </button>
