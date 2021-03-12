@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>
+  <strong>{{ data.name }}</strong>
+</h1>
+<div mat-dialog-content>
+  <address><strong>Sitio Web</strong>: {{ data.website }}</address>
+  <span>
+    <strong>Empresa</strong>
+    <ul>
+      <li><strong>Nombre</strong>: {{ data.company.name }}</li>
+      <li><strong>Descripcion</strong>: {{ data.company.catchPhrase }}</li>
+    </ul>
+  </span>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close cdkFocusInitial>Cerrar</button>
+</div>

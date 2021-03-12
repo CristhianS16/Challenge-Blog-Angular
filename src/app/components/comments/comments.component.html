@@ -1,0 +1,36 @@
+<div class="container py-3">
+  <app-custom-title
+    title="Comentarios del post #{{ postId }}"
+  ></app-custom-title>
+  <div class="row">
+    <button
+      mat-raised-button
+      color="primary"
+      class="col mt-2"
+      (click)="goBack()"
+    >
+      Volver
+    </button>
+  </div>
+  <div class="row py-2">
+    <mat-accordion
+      class="accordion w-100 mt-2"
+      *ngFor="let comment of comments"
+    >
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <strong>Nombre</strong>: {{ comment.name }}</mat-panel-title
+          >
+          <mat-panel-description>
+            <strong>Email:</strong> {{ comment.email }}
+            <mat-icon>account_circle</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="blockquote">
+          <p>{{ comment.body }}</p>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

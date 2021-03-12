@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,11 @@ import { environment } from 'src/environments/environment';
 export class UsersService {
   constructor(private http: HttpClient) {}
 
-  getUsers(): Observable<any> {
-    return this.http.get(`${environment.api_uri}/users/`);
+  getUsers() {
+    return this.http.get<User[]>(`${environment.api_uri}/users/`);
+  }
+
+  getUser(id: number) {
+    return this.http.get<User>(`${environment.api_uri}/users/${id}`);
   }
 }

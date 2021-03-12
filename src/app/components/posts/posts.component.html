@@ -7,7 +7,7 @@
         [(ngModel)]="inputTitleValue"
         matInput
         aria-label="filter by title"
-        (input)="filterByTitle()"
+        (input)="onChangeInputTitle()"
       />
     </mat-form-field>
     <mat-form-field class="w-50" appearance="outline">
@@ -41,7 +41,7 @@
             mat-raised-button
             color="accent"
             class="mt-2"
-            [routerLink]="['/usuarios', post.userId]"
+            (click)="openDialogOfUser(post.userId)"
           >
             Ver usuario
           </button>
@@ -49,7 +49,7 @@
             mat-raised-button
             color="accent"
             class="mt-2"
-            routerLink="/post/{{ post.id }}/comments"
+            [routerLink]="['/posts', post.id, 'comments']"
           >
             Comentarios
           </button>

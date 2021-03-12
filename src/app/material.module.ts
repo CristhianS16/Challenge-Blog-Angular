@@ -8,9 +8,12 @@ import { MatListModule } from '@angular/material/list';
 import { LayoutModule } from '@angular/cdk/layout';
 // CARD
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 // FormField
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+// Expansion Panel
+import { MatExpansionModule } from '@angular/material/expansion';
 @NgModule({
   imports: [
     MatToolbarModule,
@@ -20,8 +23,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatListModule,
     LayoutModule,
     MatCardModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    MatExpansionModule,
   ],
   exports: [
     MatToolbarModule,
@@ -31,8 +36,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatListModule,
     LayoutModule,
     MatCardModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    MatExpansionModule,
   ],
 })
 export class MaterialModule {}

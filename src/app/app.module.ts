@@ -12,6 +12,8 @@ import { PostsComponent } from './components/posts/posts.component';
 import { AlbumsComponent } from './components/albums/albums.component';
 import { TodosComponent } from './components/todos/todos.component';
 import { CustomTitleComponent } from './components/custom-title/custom-title.component';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { CommentsComponent } from './components/comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { CustomTitleComponent } from './components/custom-title/custom-title.com
     AlbumsComponent,
     TodosComponent,
     CustomTitleComponent,
+    DialogComponent,
+    CommentsComponent,
   ],
   imports: [
     BrowserModule,

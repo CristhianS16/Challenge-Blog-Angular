@@ -22,6 +22,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'posts/:id/comments',
+    loadChildren: () =>
+      import('./components/comments/comments.module').then(
+        (module) => module.CommentsModule
+      ),
+  },
+  {
     path: 'albumes',
     loadChildren: () =>
       import('./components/albums/albums.module').then(
