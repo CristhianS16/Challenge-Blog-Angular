@@ -33,7 +33,7 @@
                 mat-raised-button
                 color="accent"
                 class="mt-2"
-                routerLink="/albumes/{{ user.id }}"
+                [routerLink]="['/albumes/', user.id]"
               >
                 Álbumes
               </button>

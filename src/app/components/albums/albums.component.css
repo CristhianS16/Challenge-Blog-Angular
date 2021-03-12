@@ -1,0 +1,7 @@
+.expandable-content {
+  overflow: hidden;
+}
+.infinite-scroll {
+  height: 100vh;
+  overflow: auto;
+}

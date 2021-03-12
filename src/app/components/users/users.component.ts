@@ -26,7 +26,6 @@ import { User } from 'src/app/models/user.model';
 })
 export class UsersComponent implements OnInit {
   state = 'collapsed';
-  stateId = 0;
   users: User[] = [];
 
   constructor(private userService: UsersService) {}
