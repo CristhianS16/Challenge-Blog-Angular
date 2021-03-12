@@ -1,9 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AlbumsComponent } from './components/albums/albums.component';
-import { PostsComponent } from './components/posts/posts.component';
-import { TodosComponent } from './components/todos/todos.component';
-import { UsersComponent } from './components/users/users.component';
 
 const routes: Routes = [
   {
@@ -13,23 +9,31 @@ const routes: Routes = [
   },
   {
     path: 'usuarios',
-    component: UsersComponent,
+    loadChildren: () =>
+      import('./components/users/users.module').then(
+        (module) => module.UsersModule
+      ),
   },
   {
     path: 'posts',
-    component: PostsComponent,
-  },
-  {
-    path: 'posts/:id',
-    component: PostsComponent,
+    loadChildren: () =>
+      import('./components/posts/posts.module').then(
+        (module) => module.PostsModule
+      ),
   },
   {
     path: 'albumes',
-    component: AlbumsComponent,
+    loadChildren: () =>
+      import('./components/albums/albums.module').then(
+        (module) => module.AlbumsModule
+      ),
   },
   {
     path: 'todos',
-    component: TodosComponent,
+    loadChildren: () =>
+      import('./components/todos/todos.module').then(
+        (module) => module.TodosModule
+      ),
   },
 ];
 
