@@ -1,12 +1,25 @@
 <div
   class="container py-3 infinite-scroll"
-  infinite-scroll
-  (scrolled)="onScrollDown()"
-  [scrollWindow]="false"
+  ngxInfiniteScroller
+  strategy="scrollingToBottom"
+  (onScrollDown)="onScrollDown()"
 >
   <app-custom-title title="Posteos"></app-custom-title>
+  <div class="row" *ngIf="idParam">
+    <button
+      mat-raised-button
+      color="primary"
+      class="col mt-2"
+      (click)="goBack()"
+    >
+      Volver
+    </button>
+  </div>
   <div class="row py-2">
-    <mat-form-field class="w-50" appearance="outline">
+    <mat-form-field
+      [ngClass]="{ 'w-100': idParam, 'w-50': !idParam }"
+      appearance="outline"
+    >
       <mat-label>Filtra por título</mat-label>
       <input
         [(ngModel)]="inputTitleValue"
@@ -15,7 +28,7 @@
         (input)="onChangeInputTitle()"
       />
     </mat-form-field>
-    <mat-form-field class="w-50" appearance="outline">
+    <mat-form-field *ngIf="!idParam" class="w-50" appearance="outline">
       <mat-label>Filtra por id</mat-label>
       <input
         matInput
@@ -28,22 +41,24 @@
     </mat-form-field>
   </div>
   <div class="row">
+    <span
+      class="alert alert-danger col text-center"
+      *ngIf="
+        (!posts.length && !viewSpinner && !inputIdValue) ||
+        (!filteredPosts.length && inputIdValue) ||
+        (!filteredPosts.length && !generalPostsFilterSuccess)
+      "
+      >No hay resultados para esta búsqueda.</span
+    >
+  </div>
+  <div class="row">
     <span class="w-100 mt-4" *ngIf="viewSpinner">
       <mat-spinner class="mx-auto"></mat-spinner>
     </span>
-    <span
-      class="alert alert-danger col text-center"
-      *ngIf="posts.length === 0 && !viewSpinner"
-      >No hay resultados para esta búsqueda.</span
-    >
     <div
       class="col col-sm-6 col-lg-4 mt-3 align-items-center"
       *ngFor="
-        let post of filterPosts.length === 0
-          ? posts
-          : !inputIdValue && !inputTitleValue
-          ? posts
-          : filterPosts
+        let post of inputIdValue || inputTitleValue ? filteredPosts : posts
       "
     >
       <mat-card class="d-flex h-100 flex-column">

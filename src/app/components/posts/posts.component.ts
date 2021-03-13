@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
@@ -12,41 +13,39 @@ import { DialogComponent } from '../dialog/dialog.component';
 })
 export class PostsComponent implements OnInit {
   inputTitleValue: string;
-  inputIdValue: number = 0;
+  inputIdValue: number;
+  idParam: boolean = false;
   viewSpinner: boolean = true;
+  generalPostsFilterSuccess: boolean = true;
   page: number = 1;
   posts: Post[] = [];
-  filterPosts: Post[] = [];
+  filterPostById: Post[] = [];
+  filteredPosts: Post[] = [];
 
   constructor(
     private postsService: PostsService,
     private usersService: UsersService,
     private dialog: MatDialog,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
-    this.viewSpinner = true;
-    if (this.activatedRoute.params) {
-      const params = this.activatedRoute.snapshot.params;
-      this.inputIdValue = Number(params.id);
-    }
-    if (this.inputIdValue) {
-      this.postsService.getPostsById(this.inputIdValue).subscribe(
-        (posts) => {
-          this.posts = posts;
-          this.viewSpinner = false;
-        },
-        (error) => console.log(error)
-      );
+    const id = Number(this.activatedRoute.snapshot.params.id);
+    if (id) {
+      this.inputIdValue = id;
+      this.idParam = true;
+      this.filterById();
     } else {
       this.getAllPosts(this.page);
     }
   }
 
   onScrollDown(): void {
-    this.page++;
-    this.getAllPosts(this.page);
+    if (!this.inputIdValue) {
+      this.page++;
+      this.getAllPosts(this.page);
+    }
   }
 
   getAllPosts(page: number) {
@@ -54,6 +53,9 @@ export class PostsComponent implements OnInit {
     this.postsService.getPosts(page).subscribe(
       (posts) => {
         this.posts = this.posts.concat(posts);
+        if (this.inputTitleValue) {
+          this.onChangeInputTitle();
+        }
         this.viewSpinner = false;
       },
       (error) => console.log(error)
@@ -62,34 +64,50 @@ export class PostsComponent implements OnInit {
 
   onChangeInputTitle(): void {
     this.viewSpinner = true;
-    this.filterPosts = this.filterByTitle();
+    this.filterByTitle();
     this.viewSpinner = false;
   }
 
   filterByTitle(): Post[] | any {
-    if (this.inputTitleValue) {
-      const posts: Post[] = [];
-      this.posts.map((post) => {
-        if (post.title.match(this.inputTitleValue)) {
-          posts.push(post);
-        }
-      });
-      return posts;
+    if (this.inputTitleValue && this.inputIdValue) {
+      this.filteredPosts = this.filterPostById.filter((post) =>
+        post.title.includes(this.inputTitleValue)
+      );
+    } else if (this.inputTitleValue) {
+      this.filteredPosts = this.posts.filter((post) =>
+        post.title.includes(this.inputTitleValue)
+      );
+      if (!this.filteredPosts.length) {
+        this.generalPostsFilterSuccess = false;
+      } else {
+        this.generalPostsFilterSuccess = true;
+      }
+    } else if (this.inputIdValue) {
+      this.filterById();
+    } else {
+      this.generalPostsFilterSuccess = true;
+      this.page = 1;
+      this.posts = [];
+      this.getAllPosts(this.page);
     }
-    return this.posts;
   }
   filterById(): void {
     this.viewSpinner = true;
     if (this.inputIdValue) {
       this.postsService.getPostsById(this.inputIdValue).subscribe(
         (posts) => {
-          this.posts = posts;
+          this.filterPostById = posts;
+          this.filteredPosts = this.filterPostById;
           this.viewSpinner = false;
-          this.onChangeInputTitle();
+          if (this.inputTitleValue) {
+            this.onChangeInputTitle();
+          }
         },
         (error) => console.log(error)
       );
     } else {
+      this.page = 1;
+      this.posts = [];
       this.getAllPosts(this.page);
     }
   }
@@ -108,5 +126,9 @@ export class PostsComponent implements OnInit {
       },
       (error) => console.log(error)
     );
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

@@ -12,6 +12,7 @@ import { AlbumsService } from 'src/app/services/albums.service';
 import { UsersService } from 'src/app/services/users.service';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-albums',
@@ -38,7 +39,8 @@ export class AlbumsComponent implements OnInit {
     private albumsService: AlbumsService,
     private usersService: UsersService,
     private dialog: MatDialog,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -72,6 +74,10 @@ export class AlbumsComponent implements OnInit {
       this.page++;
       this.getAllAlbums(this.page);
     }
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   toggle(album: Album): void {

@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgxInfiniteScrollerModule } from 'ngx-infinite-scroller';
 import { MaterialModule } from './material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -37,6 +38,7 @@ import { PhotosComponent } from './components/photos/photos.component';
     AppRoutingModule,
     HttpClientModule,
     InfiniteScrollModule,
+    NgxInfiniteScrollerModule,
     MaterialModule,
   ],
   providers: [],

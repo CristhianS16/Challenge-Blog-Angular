@@ -5,6 +5,16 @@
   [scrollWindow]="false"
 >
   <app-custom-title title="Albumes"></app-custom-title>
+  <div class="row" *ngIf="userId">
+    <button
+      mat-raised-button
+      color="primary"
+      class="col mt-2"
+      (click)="goBack()"
+    >
+      Volver
+    </button>
+  </div>
   <div class="row">
     <div class="col col-sm-6 col-lg-4 mt-3" *ngFor="let album of albums">
       <mat-card>
