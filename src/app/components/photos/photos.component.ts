@@ -1,8 +1,10 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Photo } from 'src/app/models/photo.model';
 import { PhotosService } from 'src/app/services/photos.service';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-photos',
@@ -16,6 +18,7 @@ export class PhotosComponent implements OnInit {
 
   constructor(
     private photosService: PhotosService,
+    private dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
     private location: Location
   ) {}
@@ -51,5 +54,21 @@ export class PhotosComponent implements OnInit {
       this.onScrollDown();
     }
     this.photos = this.photos.filter((photo) => photo.id !== id);
+  }
+
+  openDialogOfPhoto(id: number) {
+    this.photosService.getPhoto(id).subscribe(
+      (photo) => {
+        this.dialog.open(DialogComponent, {
+          width: '450px',
+          data: {
+            albumId: photo.albumId,
+            title: photo.title,
+            url: photo.url,
+          },
+        });
+      },
+      (error) => console.log(error)
+    );
   }
 }

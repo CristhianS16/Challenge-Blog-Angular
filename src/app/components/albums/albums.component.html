@@ -1,8 +1,8 @@
 <div
   class="container py-3 infinite-scroll"
-  infinite-scroll
-  (scrolled)="onScrollDown()"
-  [scrollWindow]="false"
+  ngxInfiniteScroller
+  strategy="scrollingToBottom"
+  (onScrollDown)="onScrollDown()"
 >
   <app-custom-title title="Albumes"></app-custom-title>
   <div class="row" *ngIf="userId">

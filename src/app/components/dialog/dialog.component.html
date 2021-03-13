@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>
   <strong>{{ data.name }}</strong>
 </h1>
-<div mat-dialog-content>
+<div mat-dialog-content *ngIf="userView">
   <address><strong>Sitio Web</strong>: {{ data.website }}</address>
   <span>
     <strong>Empresa</strong>
@@ -12,5 +12,12 @@
   </span>
 </div>
 <div mat-dialog-actions>
-  <button mat-button mat-dialog-close cdkFocusInitial>Cerrar</button>
+  <div mat-dialog-content *ngIf="!userView">
+    <h1><strong>Album</strong>: {{ data.albumId }}</h1>
+    <p><strong>Title</strong>: {{ data.title }}</p>
+    <img class="img-fluid" [src]="data.url" alt="{{ data.title }}" />
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close cdkFocusInitial>Cerrar</button>
+  </div>
 </div>

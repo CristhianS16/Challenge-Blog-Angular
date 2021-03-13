@@ -14,4 +14,8 @@ export class PhotosService {
       `${environment.api_uri}/albums/${id}/photos?_page=${page}`
     );
   }
+
+  getPhoto(id: number) {
+    return this.http.get<Photo>(`${environment.api_uri}/photos/${id}`);
+  }
 }
