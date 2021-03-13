@@ -16,6 +16,7 @@ import { CustomTitleComponent } from './components/custom-title/custom-title.com
 import { DialogComponent } from './components/dialog/dialog.component';
 import { CommentsComponent } from './components/comments/comments.component';
 import { PhotosComponent } from './components/photos/photos.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { PhotosComponent } from './components/photos/photos.component';
     DialogComponent,
     CommentsComponent,
     PhotosComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
